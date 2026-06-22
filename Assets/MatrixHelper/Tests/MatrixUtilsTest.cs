@@ -139,6 +139,53 @@ namespace nitou.Tests {
         #endregion
 
 
+        #region 逆変換 - 全順序の網羅（行列往復）
+
+        // 回転行列の回転成分(3x3)が一致することを検証する
+        private static void AssertRotationEqual(Matrix4x4 a, Matrix4x4 b, string label) {
+            for (int r = 0; r < 3; r++) {
+                for (int c = 0; c < 3; c++) {
+                    Assert.That(b[r, c], Is.EqualTo(a[r, c]).Within(Threshold),
+                        $"{label}: m{r}{c} 不一致");
+                }
+            }
+        }
+
+        // 特異点（中間角 0/±90/180）を含むサンプル
+        private static readonly Vector3[] _samples = {
+            new Vector3(0, 0, 0),     new Vector3(30, 40, 50),   new Vector3(-20, 80, 140),
+            new Vector3(90, 0, 0),    new Vector3(0, 90, 0),     new Vector3(0, 0, 90),
+            new Vector3(10, 90, -30), new Vector3(10, -90, 30),  new Vector3(170, 10, -160),
+            new Vector3(45, -45, 45), new Vector3(0, 180, 0),    new Vector3(60, 180, -60),
+        };
+
+        [Test]
+        public void 全順序_非対称オイラー角が回転行列を介して復元されること() {
+            foreach (EulerAngles.Type order in System.Enum.GetValues(typeof(EulerAngles.Type))) {
+                foreach (var s in _samples) {
+                    var input = new EulerAngles(order, s * Mathf.Deg2Rad);
+                    var mat = input.ToMatrix();
+                    var output = MatrixUtils.ToEulerAngles(mat, order);
+                    AssertRotationEqual(mat, output.ToMatrix(), $"{order} {s}");
+                }
+            }
+        }
+
+        [Test]
+        public void 全順序_対称オイラー角が回転行列を介して復元されること() {
+            foreach (EulerAngles2.Type order in System.Enum.GetValues(typeof(EulerAngles2.Type))) {
+                foreach (var s in _samples) {
+                    var input = new EulerAngles2(order, s.x * Mathf.Deg2Rad, s.y * Mathf.Deg2Rad, s.z * Mathf.Deg2Rad);
+                    var mat = input.ToMatrix();
+                    var output = MatrixUtils.ToEulerAngles(mat, order);
+                    AssertRotationEqual(mat, output.ToMatrix(), $"{order} {s}");
+                }
+            }
+        }
+
+        #endregion
+
+
         //[Test]
         //public void 回転行列からZYXオイラー角が正しく取得されること() {
         //    // Arrange
