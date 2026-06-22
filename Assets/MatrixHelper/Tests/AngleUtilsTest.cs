@@ -45,9 +45,25 @@ namespace Tests {
             for (int i = 0; i < testAngles.Length; i++) {
                 var normalized = AngleUtils.Normalize180(testAngles[i]);
                 Assert.That(
-                    normalized, 
-                    Is.EqualTo(expectedAngles[i]).Within(EulerAngles.Tolerance), 
+                    normalized,
+                    Is.EqualTo(expectedAngles[i]).Within(EulerAngles.Tolerance),
                     $"Normalize180 failed for {testAngles[i]}");
+            }
+        }
+
+        [Test]
+        public void TestNormalize180Inclusive() {
+            // 値域 (-180, 180]：+180 は +180 のまま、-180 は +180 に写る
+            float[] testAngles = new float[] { -360f, -180f, 0f, 90f, 180f, 270f, 360f, 540f, -540f, 720f };
+            float[] expectedAngles = new float[] { 0f, 180f, 0f, 90f, 180f, -90f, 0f, 180f, 180f, 0f };
+
+            // Act & Assert
+            for (int i = 0; i < testAngles.Length; i++) {
+                var normalized = AngleUtils.Normalize180Inclusive(testAngles[i]);
+                Assert.That(
+                    normalized,
+                    Is.EqualTo(expectedAngles[i]).Within(EulerAngles.Tolerance),
+                    $"Normalize180Inclusive failed for {testAngles[i]}");
             }
         }
     }
