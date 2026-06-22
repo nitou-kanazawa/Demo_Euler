@@ -99,6 +99,15 @@ namespace nitou {
             },
             X, Y, Z);
 
+
+        /// <summary>
+        /// 角度を (-180, 180] の範囲に正規化
+        /// </summary>
+        private static float NormalizeAngleTo180(float angle) {
+            angle %= 360f; // 360で剰余
+            return angle > 180f ? angle - 360f : (angle <= -180f ? angle + 360f : angle);
+        }
+
     }
 
 
