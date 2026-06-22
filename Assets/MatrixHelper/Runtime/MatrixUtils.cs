@@ -246,6 +246,16 @@ namespace nitou {
         }
 
         /// <summary>
+        /// 回転行列からZYZ-オイラー角を取得する．
+        /// </summary>
+        /// <remarks>
+        /// 実装は <see cref="FromRotationMatrixZYZ"/> に集約している．
+        /// （旧実装は中間角に Acos(m11) を用いた誤りがあったため修正）
+        /// </remarks>
+        /// <param name="mat">ZYZオイラー角の回転行列</param>
+        public static EulerAngles2 GetEulerAnglesZYZ(Matrix4x4 mat) => FromRotationMatrixZYZ(mat);
+
+        /// <summary>
         /// 回転行列からZYZオイラー角を導出します。
         /// </summary>
         /// <param name="mat">回転行列 (4x4)</param>
