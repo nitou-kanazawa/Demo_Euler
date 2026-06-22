@@ -55,6 +55,19 @@ namespace nitou {
         }
 
         /// <summary>
+        /// 角度[deg]を (−180, 180] の範囲で正規化する．
+        /// </summary>
+        /// <remarks>
+        /// <see cref="Normalize180(float)"/> が [−180, 180) なのに対し、
+        /// こちらは上限側を含む (−180, 180]（+180 は +180 のまま、−180 は +180 に写る）．
+        /// </remarks>
+        public static float Normalize180Inclusive(float angle) {
+            // 値域： (-180,180]
+            angle %= 360f; // 360で剰余
+            return angle > 180f ? angle - 360f : (angle <= -180f ? angle + 360f : angle);
+        }
+
+        /// <summary>
         /// 角度[rad]を 0 ～ 2π の範囲で正規化する．
         /// </summary>
         public static float Normalize2Pi(float radians) {
