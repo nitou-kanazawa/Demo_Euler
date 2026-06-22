@@ -197,32 +197,52 @@ namespace nitou {
 
         // -----
 
+        /// <summary>
+        /// 回転行列からXZX-オイラー角を取得する．
+        /// </summary>
+        /// <remarks>R = Rx(s1)・Rz(p)・Rx(s2)</remarks>
+        /// <param name="mat">XZXオイラー角の回転行列</param>
         public static EulerAngles2 GetEulerAnglesXZX(Matrix4x4 mat) {
-            float s1 = Mathf.Atan2(mat.m10, mat.m20);
+            // p は inner 軸(Z)回りの回転角．m00 = cos(p)
             float p = Mathf.Acos(Mathf.Clamp(mat.m00, -1.0f, 1.0f));
-            float s2 = Mathf.Atan2(mat.m01, -mat.m02);
+
+            float s1, s2;
+            // sin(p) ≈ 0 のとき s1 と s2 が縮退するため、s2 = 0 として s1 を求める
+            if (Mathf.Approximately(p, 0)) {
+                s2 = 0;
+                s1 = Mathf.Atan2(mat.m21, mat.m11);
+            } else if (Mathf.Approximately(p, Mathf.PI)) {
+                s2 = 0;
+                s1 = Mathf.Atan2(-mat.m21, -mat.m11);
+            } else {
+                s1 = Mathf.Atan2(mat.m20, mat.m10);
+                s2 = Mathf.Atan2(mat.m02, -mat.m01);
+            }
 
             return new EulerAngles2(EulerAngles2.Type.XZX, s1, p, s2);
         }
 
 
+        /// <summary>
+        /// 回転行列からZXZ-オイラー角を取得する．
+        /// </summary>
+        /// <remarks>R = Rz(s1)・Rx(p)・Rz(s2)</remarks>
+        /// <param name="mat">ZXZオイラー角の回転行列</param>
         public static EulerAngles2 GetEulerAnglesZXZ(Matrix4x4 mat) {
-            // ZXZオイラー角の計算
-            float s1 = Mathf.Atan2(mat.m10, mat.m20);   // 最初のZ軸回転
-            float p = Mathf.Acos(Mathf.Clamp(mat.m00, -1.0f, 1.0f)); // X軸回転
-            float s2 = Mathf.Atan2(mat.m01, -mat.m02);  // 2回目のZ軸回転
+            // p は inner 軸(X)回りの回転角．m22 = cos(p)
+            float p = Mathf.Acos(Mathf.Clamp(mat.m22, -1.0f, 1.0f));
+
+            float s1, s2;
+            // sin(p) ≈ 0 のとき s1 と s2 が縮退するため、s2 = 0 として s1 を求める
+            if (Mathf.Approximately(p, 0) || Mathf.Approximately(p, Mathf.PI)) {
+                s2 = 0;
+                s1 = Mathf.Atan2(mat.m10, mat.m00);
+            } else {
+                s1 = Mathf.Atan2(mat.m02, -mat.m12);
+                s2 = Mathf.Atan2(mat.m20, mat.m21);
+            }
 
             return new EulerAngles2(EulerAngles2.Type.ZXZ, s1, p, s2);
-        }
-
-        public static EulerAngles2 GetEulerAnglesZYZ(Matrix4x4 mat) {
-
-            // ZYZオイラー角の計算
-            float s1 = Mathf.Atan2(mat.m10, mat.m00);   // 最初のZ軸回転
-            float p = Mathf.Acos(Mathf.Clamp(mat.m11, -1.0f, 1.0f)); // Y軸回転
-            float s2 = Mathf.Atan2(mat.m21, -mat.m22);  // 2回目のZ軸回転
-
-            return new EulerAngles2(EulerAngles2.Type.ZYZ, s1, p, s2);
         }
 
         /// <summary>
