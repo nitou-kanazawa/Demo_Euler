@@ -57,10 +57,10 @@ namespace nitou.Tests {
             Debug.Log(mat);
             var outputEuler = MatrixUtils.GetEulerAnglesXYZ(mat);
 
-            // Assert
+            // Assert（±180°等は角度一意でないため、回転行列の往復一致で検証する）
             Debug.Log(inputEuler.ToStringDeg());
             Debug.Log(outputEuler.ToStringDeg());
-            Assert.That(outputEuler, Is.EqualTo(inputEuler));
+            AssertRotationEqual(mat, outputEuler.ToMatrix(), inputEuler.ToStringDeg());
         }
 
         [TestCase(0, 0, 0)]
@@ -80,10 +80,10 @@ namespace nitou.Tests {
             Debug.Log(mat);
             var outputEuler = MatrixUtils.FromRotationMatrixZYZ(mat);
 
-            // Assert
+            // Assert（±180°や負の中間角は角度一意でないため、回転行列の往復一致で検証する）
             Debug.Log(inputEuler.ToStringDeg());
             Debug.Log(outputEuler.ToStringDeg());
-            Assert.That(outputEuler, Is.EqualTo(inputEuler));
+            AssertRotationEqual(mat, outputEuler.ToMatrix(), inputEuler.ToStringDeg());
         }
 
         // [NOTE] 対称オイラー角(i-j-i)では中間角 p が Acos により [0,180] に制限されるため、
