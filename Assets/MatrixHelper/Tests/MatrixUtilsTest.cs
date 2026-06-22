@@ -86,6 +86,53 @@ namespace nitou.Tests {
             Assert.That(outputEuler, Is.EqualTo(inputEuler));
         }
 
+        // [NOTE] 対称オイラー角(i-j-i)では中間角 p が Acos により [0,180] に制限されるため、
+        //  往復が一意に決まる範囲（p∈[0,180]、特異点 p∈{0,180} では s2=0）でケースを選定している．
+
+        [TestCase(0, 0, 0)]     // 特異点 (p=0)
+        [TestCase(90, 0, 0)]    // 特異点 (p=0)
+        [TestCase(50, 180, 0)]  // 特異点 (p=180)
+        [TestCase(30, 45, 80)]
+        [TestCase(0, 90, 0)]
+        [TestCase(-30, 60, 80)]
+        [TestCase(45, 135, -60)]
+        public void XZXオイラー角が回転行列を介して正しく復元されること(float s1, float p, float s2) {
+            // Arrange
+            var angles = new Vector3(s1, p, s2) * Mathf.Deg2Rad;
+            var inputEuler = new EulerAngles2(EulerAngles2.Type.XZX, angles.x, angles.y, angles.z);
+
+            // Act
+            var mat = inputEuler.ToMatrix();
+            var outputEuler = MatrixUtils.GetEulerAnglesXZX(mat);
+
+            // Assert
+            Debug.Log(inputEuler.ToStringDeg());
+            Debug.Log(outputEuler.ToStringDeg());
+            Assert.That(outputEuler, Is.EqualTo(inputEuler));
+        }
+
+        [TestCase(0, 0, 0)]     // 特異点 (p=0)
+        [TestCase(90, 0, 0)]    // 特異点 (p=0)
+        [TestCase(50, 180, 0)]  // 特異点 (p=180)
+        [TestCase(30, 45, 80)]
+        [TestCase(0, 90, 0)]
+        [TestCase(-30, 60, 80)]
+        [TestCase(45, 135, -60)]
+        public void ZXZオイラー角が回転行列を介して正しく復元されること(float s1, float p, float s2) {
+            // Arrange
+            var angles = new Vector3(s1, p, s2) * Mathf.Deg2Rad;
+            var inputEuler = new EulerAngles2(EulerAngles2.Type.ZXZ, angles.x, angles.y, angles.z);
+
+            // Act
+            var mat = inputEuler.ToMatrix();
+            var outputEuler = MatrixUtils.GetEulerAnglesZXZ(mat);
+
+            // Assert
+            Debug.Log(inputEuler.ToStringDeg());
+            Debug.Log(outputEuler.ToStringDeg());
+            Assert.That(outputEuler, Is.EqualTo(inputEuler));
+        }
+
 
 
 
