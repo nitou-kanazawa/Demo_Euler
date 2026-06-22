@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 
 // [REF]
-//  _: ƒIƒCƒ‰[ŠpŒvŽZƒc[ƒ‹ (Euler Angle Calculator) https://www.pystyle.info/apps/euler-angles-calculator/
+//  _: ã‚ªã‚¤ãƒ©ãƒ¼è§’è¨ˆç®—ãƒ„ãƒ¼ãƒ« (Euler Angle Calculator) https://www.pystyle.info/apps/euler-angles-calculator/
 
 namespace nitou.Tests {
 
@@ -11,10 +11,10 @@ namespace nitou.Tests {
         private const float Threshold = 1e-3f;
 
 
-        #region ‡•ÏŠ· - XŽ²‰ñ“]s—ñ
+        #region é †å¤‰æ› - Xè»¸å›žè»¢è¡Œåˆ—
 
         [Test]
-        public void XŽ²‰ñ“]s—ñ‚ª³‚µ‚­¶¬‚³‚ê‚é‚±‚Æ() {
+        public void Xè»¸å›žè»¢è¡Œåˆ—ãŒæ­£ã—ãç”Ÿæˆã•ã‚Œã‚‹ã“ã¨() {
             // Arrange
             float theta = 90 * Mathf.Deg2Rad;
 
@@ -38,7 +38,7 @@ namespace nitou.Tests {
 
         #endregion
 
-        #region ‡•ÏŠ· - YŽ²‰ñ“]s—ñ
+        #region é †å¤‰æ› - Yè»¸å›žè»¢è¡Œåˆ—
 
         [TestCase(0, 0, 0)]
         [TestCase(30, 45, 80)]
@@ -47,7 +47,7 @@ namespace nitou.Tests {
         [TestCase(180, 180, 180)]
         [TestCase(-30, -45, -80)]
         [TestCase(360, 360, 360)]
-        public void XYZƒIƒCƒ‰[Šp‚©‚ç‰ñ“]s—ñ‚ª³‚µ‚­¶¬‚³‚ê‚é‚±‚Æ(float x, float y, float z) { 
+        public void XYZã‚ªã‚¤ãƒ©ãƒ¼è§’ã‹ã‚‰å›žè»¢è¡Œåˆ—ãŒæ­£ã—ãç”Ÿæˆã•ã‚Œã‚‹ã“ã¨(float x, float y, float z) { 
             // Arrange
             var angles = new Vector3(x, y, z) * Mathf.Deg2Rad;
             var inputEuler = new EulerAngles(EulerAngles.Type.XYZ, angles);
@@ -70,7 +70,7 @@ namespace nitou.Tests {
         [TestCase(180, 180, 180)]
         [TestCase(-30, -45, -80)]
         [TestCase(360, 360, 360)]
-        public void ZYZƒIƒCƒ‰[Šp‚©‚ç‰ñ“]s—ñ‚ª³‚µ‚­¶¬‚³‚ê‚é‚±‚Æ(float x, float y, float z) {
+        public void ZYZã‚ªã‚¤ãƒ©ãƒ¼è§’ã‹ã‚‰å›žè»¢è¡Œåˆ—ãŒæ­£ã—ãç”Ÿæˆã•ã‚Œã‚‹ã“ã¨(float x, float y, float z) {
             // Arrange
             var angles = new Vector3(x, y, z) * Mathf.Deg2Rad;
             var inputEuler = new EulerAngles2(EulerAngles2.Type.ZYZ, angles.x, angles.y, angles.z);
@@ -93,7 +93,7 @@ namespace nitou.Tests {
 
 
         //[Test]
-        //public void ‰ñ“]s—ñ‚©‚çZYXƒIƒCƒ‰[Šp‚ª³‚µ‚­Žæ“¾‚³‚ê‚é‚±‚Æ() {
+        //public void å›žè»¢è¡Œåˆ—ã‹ã‚‰ZYXã‚ªã‚¤ãƒ©ãƒ¼è§’ãŒæ­£ã—ãå–å¾—ã•ã‚Œã‚‹ã“ã¨() {
         //    // Arrange
         //    var angles = new Vector3(30, 0,0)
         //    var inputEuler = new EulerAngles(EulerAngles.Type.ZYX, )

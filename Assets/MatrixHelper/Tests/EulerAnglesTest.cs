@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 
 // [REF]
-//  _: ƒIƒCƒ‰[ŠpŒvZƒc[ƒ‹ (Euler Angle Calculator) https://www.pystyle.info/apps/euler-angles-calculator/
+//  _: ã‚ªã‚¤ãƒ©ãƒ¼è§’è¨ˆç®—ãƒ„ãƒ¼ãƒ« (Euler Angle Calculator) https://www.pystyle.info/apps/euler-angles-calculator/
 
 namespace nitou.Tests {
 
@@ -11,12 +11,12 @@ namespace nitou.Tests {
     public class EulerAnglesTest {
 
         [Test]
-        public void “¯‚¶’l‚Æ‚µ‚Ä”»’è‚³‚ê‚é‚±‚Æ() {
+        public void åŒã˜å€¤ã¨ã—ã¦åˆ¤å®šã•ã‚Œã‚‹ã“ã¨() {
             var angles1 = new EulerAngles(EulerAngles.Type.XYZ, 0.5235988f, 0.7853982f, 1.396263f);
             var angles2 = new EulerAngles(EulerAngles.Type.XYZ, 0.5235988f, 0.7853981f, 1.396263f);
 
-            Assert.IsTrue(angles1.Equals(angles2)); // ‹–—eŒë·“à‚Å“¯’l
-            Assert.IsFalse(angles1.IsZero()); // ƒ[ƒ‚Å‚Í‚È‚¢
+            Assert.IsTrue(angles1.Equals(angles2)); // è¨±å®¹èª¤å·®å†…ã§åŒå€¤
+            Assert.IsFalse(angles1.IsZero()); // ã‚¼ãƒ­ã§ã¯ãªã„
         }
     }
 

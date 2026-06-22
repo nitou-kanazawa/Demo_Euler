@@ -2,10 +2,10 @@ using System;
 using UnityEngine;
 
 // [REF]
-//  qiita: ‰ñ“]s—ñAƒNƒH[ƒ^ƒjƒIƒ“(lŒ³”)AƒIƒCƒ‰[Šp‚Ì‘ŠŒİ•ÏŠ· https://qiita.com/aa_debdeb/items/3d02e28fb9ebfa357eaf
-//  qiita: s—ñ(Matrix4x4)‚Ì¢ŠE‚ğŠ_ŠÔŒ©‚é https://qiita.com/hikoalpha/items/6612c3704c3c9610a08a
-//  qiita: ƒIƒCƒ‰[Šp‚Éö‚Ş5‚Â‚Ìã© https://qiita.com/take4eng/items/0f5a9ff47fd345e5fc33
-//  _: ¶èŒn‚ÌƒNƒH[ƒ^ƒjƒIƒ“‚©‚ç‰EèŒn‚Ìƒ[ƒ‹Eƒsƒbƒ`Eƒˆ[‚ğ‹‚ß‚é https://mtkbirdman.com/unity-quaternion-euler
+//  qiita: å›è»¢è¡Œåˆ—ã€ã‚¯ã‚©ãƒ¼ã‚¿ãƒ‹ã‚ªãƒ³(å››å…ƒæ•°)ã€ã‚ªã‚¤ãƒ©ãƒ¼è§’ã®ç›¸äº’å¤‰æ› https://qiita.com/aa_debdeb/items/3d02e28fb9ebfa357eaf
+//  qiita: è¡Œåˆ—(Matrix4x4)ã®ä¸–ç•Œã‚’å£é–“è¦‹ã‚‹ https://qiita.com/hikoalpha/items/6612c3704c3c9610a08a
+//  qiita: ã‚ªã‚¤ãƒ©ãƒ¼è§’ã«æ½œã‚€5ã¤ã®ç½  https://qiita.com/take4eng/items/0f5a9ff47fd345e5fc33
+//  _: å·¦æ‰‹ç³»ã®ã‚¯ã‚©ãƒ¼ã‚¿ãƒ‹ã‚ªãƒ³ã‹ã‚‰å³æ‰‹ç³»ã®ãƒ­ãƒ¼ãƒ«ãƒ»ãƒ”ãƒƒãƒãƒ»ãƒ¨ãƒ¼ã‚’æ±‚ã‚ã‚‹ https://mtkbirdman.com/unity-quaternion-euler
 
 
 namespace nitou {
@@ -13,14 +13,14 @@ namespace nitou {
     public static class MatrixUtils {
 
         /// ----------------------------------------------------------------------------
-        #region ‡•ÏŠ·
+        #region é †å¤‰æ›
 
-        // å²ü‚è‚Ì‰ñ“]
+        // ä¸»è»¸å‘¨ã‚Šã®å›è»¢
 
         /// <summary>
-        /// X²ü‚è‚Ì‰ñ“]s—ñ‚ğ¶¬D
+        /// Xè»¸å‘¨ã‚Šã®å›è»¢è¡Œåˆ—ã‚’ç”Ÿæˆï¼
         /// </summary>
-        /// <param name="theta">‰ñ“]Šp“x [rad]</param>
+        /// <param name="theta">å›è»¢è§’åº¦ [rad]</param>
         public static Matrix4x4 Rx(float theta) {
             float c = Mathf.Cos(theta);
             float s = Mathf.Sin(theta);
@@ -47,9 +47,9 @@ namespace nitou {
         }
 
         /// <summary>
-        /// Y²ü‚è‚Ì‰ñ“]s—ñ‚ğ¶¬
+        /// Yè»¸å‘¨ã‚Šã®å›è»¢è¡Œåˆ—ã‚’ç”Ÿæˆ
         /// </summary>
-        /// <param name="theta">‰ñ“]Šp“x [rad]</param>
+        /// <param name="theta">å›è»¢è§’åº¦ [rad]</param>
         public static Matrix4x4 Ry(float theta) {
             float c = Mathf.Cos(theta);
             float s = Mathf.Sin(theta);
@@ -76,9 +76,9 @@ namespace nitou {
         }
 
         /// <summary>
-        /// Z²ü‚è‚Ì‰ñ“]s—ñ‚ğ¶¬
+        /// Zè»¸å‘¨ã‚Šã®å›è»¢è¡Œåˆ—ã‚’ç”Ÿæˆ
         /// </summary>
-        /// <param name="theta">‰ñ“]Šp“x [rad]</param>
+        /// <param name="theta">å›è»¢è§’åº¦ [rad]</param>
         public static Matrix4x4 Rz(float theta) {
             float c = Mathf.Cos(theta);
             float s = Mathf.Sin(theta);
@@ -104,33 +104,33 @@ namespace nitou {
             return mat;
         }
 
-        // ƒIƒCƒ‰[Šp
+        // ã‚ªã‚¤ãƒ©ãƒ¼è§’
 
         /// <summary>
-        /// ƒIƒCƒ‰[Šp‚©‚ç‰ñ“]s—ñ‚ğ¶¬D
+        /// ã‚ªã‚¤ãƒ©ãƒ¼è§’ã‹ã‚‰å›è»¢è¡Œåˆ—ã‚’ç”Ÿæˆï¼
         /// </summary>
-        /// <param name="x">X`²ü‚è‚Ì‰ñ“]Šp [rad]</param>
-        /// <param name="y">Y`²ü‚è‚Ì‰ñ“]Šp [rad]</param>
-        /// <param name="z">Z`²ü‚è‚Ì‰ñ“]Šp [rad]</param>
+        /// <param name="x">X`è»¸å‘¨ã‚Šã®å›è»¢è§’ [rad]</param>
+        /// <param name="y">Y`è»¸å‘¨ã‚Šã®å›è»¢è§’ [rad]</param>
+        /// <param name="z">Z`è»¸å‘¨ã‚Šã®å›è»¢è§’ [rad]</param>
         public static Matrix4x4 FromEulerAngle(EulerAngles.Type type, float x, float y, float z) {
             return type switch {
-                // [NOTE] ƒIƒCƒ‰[Šp‚Å‚Í‰E‚©‚çŸ‚Ìs—ñ‚ğŠ|‚¯‚Ä‚¢‚­ (¦ŒÅ’èŠp‚Í¶‚©‚ç)
-                EulerAngles.Type.XYZ => Rx(x) * Ry(y) * Rz(z), // X ¨ Y ¨ Z
-                EulerAngles.Type.XZY => Rx(x) * Rz(z) * Ry(y), // X ¨ Z ¨ Y
-                EulerAngles.Type.YXZ => Ry(y) * Rx(x) * Rz(z), // Y ¨ X ¨ Z
-                EulerAngles.Type.YZX => Ry(y) * Rz(z) * Rx(x), // Y ¨ Z ¨ X
-                EulerAngles.Type.ZXY => Rz(z) * Rx(x) * Ry(y), // Z ¨ X ¨ Y
-                EulerAngles.Type.ZYX => Rz(z) * Ry(y) * Rx(x), // Z ¨ Y ¨ X
+                // [NOTE] ã‚ªã‚¤ãƒ©ãƒ¼è§’ã§ã¯å³ã‹ã‚‰æ¬¡ã®è¡Œåˆ—ã‚’æ›ã‘ã¦ã„ã (â€»å›ºå®šè§’ã¯å·¦ã‹ã‚‰)
+                EulerAngles.Type.XYZ => Rx(x) * Ry(y) * Rz(z), // X â†’ Y â†’ Z
+                EulerAngles.Type.XZY => Rx(x) * Rz(z) * Ry(y), // X â†’ Z â†’ Y
+                EulerAngles.Type.YXZ => Ry(y) * Rx(x) * Rz(z), // Y â†’ X â†’ Z
+                EulerAngles.Type.YZX => Ry(y) * Rz(z) * Rx(x), // Y â†’ Z â†’ X
+                EulerAngles.Type.ZXY => Rz(z) * Rx(x) * Ry(y), // Z â†’ X â†’ Y
+                EulerAngles.Type.ZYX => Rz(z) * Ry(y) * Rx(x), // Z â†’ Y â†’ X
                 _ => throw new NotImplementedException($"Euler type {type} is not implemented. Please verify the input.")
             };
         }
 
         /// <summary>
-        /// ƒIƒCƒ‰[Šp‚©‚ç‰ñ“]s—ñ‚ğ¶¬D
+        /// ã‚ªã‚¤ãƒ©ãƒ¼è§’ã‹ã‚‰å›è»¢è¡Œåˆ—ã‚’ç”Ÿæˆï¼
         /// </summary>
-        /// <param name="s2">‚P‰ñ–Ú‚Ì‰ñ“]Šp [rad]</param>
-        /// <param name="p">’†‰›²‚Ì‰ñ“]Šp [rad]</param>
-        /// <param name="s1">‚Q‰ñ–Ú‚Ì‰ñ“]Šp [rad]</param>
+        /// <param name="s2">ï¼‘å›ç›®ã®å›è»¢è§’ [rad]</param>
+        /// <param name="p">ä¸­å¤®è»¸ã®å›è»¢è§’ [rad]</param>
+        /// <param name="s1">ï¼’å›ç›®ã®å›è»¢è§’ [rad]</param>
         public static Matrix4x4 FromEulerAngle(EulerAngles2.Type type, float s1, float p, float s2) {
             return type switch {
                 EulerAngles2.Type.XZX => Rx(s1) * Rz(p) * Rx(s2),
@@ -147,14 +147,14 @@ namespace nitou {
 
 
         /// ----------------------------------------------------------------------------
-        #region ‹t•ÏŠ·
+        #region é€†å¤‰æ›
 
         private const float GimbalLockThreshold = 1e-6f;
 
         /// <summary>
-        /// ‰ñ“]s—ñ‚©‚çXYZ-ƒIƒCƒ‰[Šp‚ğæ“¾‚·‚éD
+        /// å›è»¢è¡Œåˆ—ã‹ã‚‰XYZ-ã‚ªã‚¤ãƒ©ãƒ¼è§’ã‚’å–å¾—ã™ã‚‹ï¼
         /// </summary>
-        /// <param name="mat">XYZƒIƒCƒ‰[Šp‚Ì‰ñ“]s—ñ</param>
+        /// <param name="mat">XYZã‚ªã‚¤ãƒ©ãƒ¼è§’ã®å›è»¢è¡Œåˆ—</param>
         /// <returns></returns>
         public static EulerAngles GetEulerAnglesXYZ(Matrix4x4 mat) {
 
@@ -174,13 +174,13 @@ namespace nitou {
         }
 
         /// <summary>
-        /// ‰ñ“]s—ñ‚©‚çZYX-ƒIƒCƒ‰[Šp‚ğæ“¾‚·‚éD
+        /// å›è»¢è¡Œåˆ—ã‹ã‚‰ZYX-ã‚ªã‚¤ãƒ©ãƒ¼è§’ã‚’å–å¾—ã™ã‚‹ï¼
         /// </summary>
-        /// <param name="mat">ZYXƒIƒCƒ‰[Šp‚Ì‰ñ“]s—ñ</param>
+        /// <param name="mat">ZYXã‚ªã‚¤ãƒ©ãƒ¼è§’ã®å›è»¢è¡Œåˆ—</param>
         /// <returns></returns>
         public static EulerAngles GetEulerAnglesZYX(Matrix4x4 mat) {
 
-            float phi = Mathf.Asin(Mathf.Clamp(-mat.m20, -1.0f, 1.0f));   // ArcSin‚Ì—LŒø”ÍˆÍ[-1,1]‚É§ŒÀ
+            float phi = Mathf.Asin(Mathf.Clamp(-mat.m20, -1.0f, 1.0f));   // ArcSinã®æœ‰åŠ¹ç¯„å›²[-1,1]ã«åˆ¶é™
             bool isGimbalLock = Mathf.Abs(Mathf.Cos(phi)) < GimbalLockThreshold;
 
             float theta, psi;
@@ -207,57 +207,57 @@ namespace nitou {
 
 
         public static EulerAngles2 GetEulerAnglesZXZ(Matrix4x4 mat) {
-            // ZXZƒIƒCƒ‰[Šp‚ÌŒvZ
-            float s1 = Mathf.Atan2(mat.m10, mat.m20);   // Å‰‚ÌZ²‰ñ“]
-            float p = Mathf.Acos(Mathf.Clamp(mat.m00, -1.0f, 1.0f)); // X²‰ñ“]
-            float s2 = Mathf.Atan2(mat.m01, -mat.m02);  // 2‰ñ–Ú‚ÌZ²‰ñ“]
+            // ZXZã‚ªã‚¤ãƒ©ãƒ¼è§’ã®è¨ˆç®—
+            float s1 = Mathf.Atan2(mat.m10, mat.m20);   // æœ€åˆã®Zè»¸å›è»¢
+            float p = Mathf.Acos(Mathf.Clamp(mat.m00, -1.0f, 1.0f)); // Xè»¸å›è»¢
+            float s2 = Mathf.Atan2(mat.m01, -mat.m02);  // 2å›ç›®ã®Zè»¸å›è»¢
 
             return new EulerAngles2(EulerAngles2.Type.ZXZ, s1, p, s2);
         }
 
         public static EulerAngles2 GetEulerAnglesZYZ(Matrix4x4 mat) {
 
-            // ZYZƒIƒCƒ‰[Šp‚ÌŒvZ
-            float s1 = Mathf.Atan2(mat.m10, mat.m00);   // Å‰‚ÌZ²‰ñ“]
-            float p = Mathf.Acos(Mathf.Clamp(mat.m11, -1.0f, 1.0f)); // Y²‰ñ“]
-            float s2 = Mathf.Atan2(mat.m21, -mat.m22);  // 2‰ñ–Ú‚ÌZ²‰ñ“]
+            // ZYZã‚ªã‚¤ãƒ©ãƒ¼è§’ã®è¨ˆç®—
+            float s1 = Mathf.Atan2(mat.m10, mat.m00);   // æœ€åˆã®Zè»¸å›è»¢
+            float p = Mathf.Acos(Mathf.Clamp(mat.m11, -1.0f, 1.0f)); // Yè»¸å›è»¢
+            float s2 = Mathf.Atan2(mat.m21, -mat.m22);  // 2å›ç›®ã®Zè»¸å›è»¢
 
             return new EulerAngles2(EulerAngles2.Type.ZYZ, s1, p, s2);
         }
 
         /// <summary>
-        /// ‰ñ“]s—ñ‚©‚çZYZƒIƒCƒ‰[Šp‚ğ“±o‚µ‚Ü‚·B
+        /// å›è»¢è¡Œåˆ—ã‹ã‚‰ZYZã‚ªã‚¤ãƒ©ãƒ¼è§’ã‚’å°å‡ºã—ã¾ã™ã€‚
         /// </summary>
-        /// <param name="mat">‰ñ“]s—ñ (4x4)</param>
-        /// <returns>ZYZƒIƒCƒ‰[Šp (alpha, beta, gamma)</returns>
+        /// <param name="mat">å›è»¢è¡Œåˆ— (4x4)</param>
+        /// <returns>ZYZã‚ªã‚¤ãƒ©ãƒ¼è§’ (alpha, beta, gamma)</returns>
         public static EulerAngles2 FromRotationMatrixZYZ(Matrix4x4 mat) {
 
-            // Rz`y`z`(ƒ¿ƒÀƒÁ)
-            // = Rƒ¿ RƒÀ RƒÁ
-            //   | cƒ¿cƒÀcƒÁ-sƒ¿sƒÁ -cƒ¿cƒÀsƒÁ-sƒ¿cƒÀƒÁ cƒ¿sƒÀ |
-            // = | cƒ¿cƒÀcƒÁ+cƒ¿sƒÁ -sƒ¿cƒÀsƒÁ+cƒ¿cƒÁ  sƒ¿sƒÀ |
-            //   |    -sƒÀcƒÁ         sƒÀsƒÁ      cƒÀ  |
+            // Rz`y`z`(Î±Î²Î³)
+            // = RÎ± RÎ² RÎ³
+            //   | cÎ±cÎ²cÎ³-sÎ±sÎ³ -cÎ±cÎ²sÎ³-sÎ±cÎ²Î³ cÎ±sÎ² |
+            // = | cÎ±cÎ²cÎ³+cÎ±sÎ³ -sÎ±cÎ²sÎ³+cÎ±cÎ³  sÎ±sÎ² |
+            //   |    -sÎ²cÎ³         sÎ²sÎ³      cÎ²  |
 
-            // m22‚©‚çƒÀ‚ğ“±o‚Å‚«‚éD
-            // ‚Ü‚½sinƒÀ‚0i”ñƒWƒ“ƒoƒ‹ƒƒbƒNj‚Ì‚Æ‚«Am02‚Æm12‚©‚çƒ¿Am20‚Æm21‚©‚çƒÁ‚ğ“±o‚Å‚«‚éD
+            // m22ã‹ã‚‰Î²ã‚’å°å‡ºã§ãã‚‹ï¼
+            // ã¾ãŸsinÎ²â‰ 0ï¼ˆéã‚¸ãƒ³ãƒãƒ«ãƒ­ãƒƒã‚¯ï¼‰ã®ã¨ãã€m02ã¨m12ã‹ã‚‰Î±ã€m20ã¨m21ã‹ã‚‰Î³ã‚’å°å‡ºã§ãã‚‹ï¼
 
             float alpha, beta, gamma;
             beta = Mathf.Acos(mat.m22);
 
-            // “ÁêƒP[ƒX‚Ìˆ—
-            // beta = 0 ‚Ìê‡ (Z²‰ñ‚è‚Ì‰ñ“]‚Ì‚İ)
+            // ç‰¹æ®Šã‚±ãƒ¼ã‚¹ã®å‡¦ç†
+            // beta = 0 ã®å ´åˆ (Zè»¸å›ã‚Šã®å›è»¢ã®ã¿)
             if (Mathf.Approximately(beta, 0)) {
                 alpha = 0;
                 gamma = Mathf.Atan2(mat.m01, mat.m00); // atan2(R12, R11)
             } 
-            // beta = pi ‚Ìê‡ (”½“])
+            // beta = pi ã®å ´åˆ (åè»¢)
             else if (Mathf.Approximately(beta, Mathf.PI)) {
                 alpha = 0;
                 gamma = Mathf.Atan2(-mat.m01, -mat.m00); // atan2(-R12, -R11)
             } 
             
 
-            // ’ÊíƒP[ƒX
+            // é€šå¸¸ã‚±ãƒ¼ã‚¹
             else {
                 alpha = Mathf.Atan2(mat.m12, mat.m02); // arctan(m12, m02)
                 gamma = Mathf.Atan2(mat.m21, -mat.m20); // arctan(m21, -m20)

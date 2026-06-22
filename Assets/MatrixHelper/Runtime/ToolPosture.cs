@@ -17,13 +17,13 @@ public sealed class ToolPosture {
 
 
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^iH‹ï²‚Æ²ü‚è‚Ì‰ñ“]Šp“x‚ğw’è‚µ‚Ä¶¬j
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼ˆå·¥å…·è»¸ã¨è»¸å‘¨ã‚Šã®å›è»¢è§’åº¦ã‚’æŒ‡å®šã—ã¦ç”Ÿæˆï¼‰
     /// </summary>
-    /// <param name="toolAxis">H‹ï²•ûŒüi³‹K‰»‚³‚ê‚éj</param>
-    /// <param name="axisRotationAngle">²ü‚è‚Ì‰ñ“]Šp“xi“x”–@j</param>
+    /// <param name="toolAxis">å·¥å…·è»¸æ–¹å‘ï¼ˆæ­£è¦åŒ–ã•ã‚Œã‚‹ï¼‰</param>
+    /// <param name="axisRotationAngle">è»¸å‘¨ã‚Šã®å›è»¢è§’åº¦ï¼ˆåº¦æ•°æ³•ï¼‰</param>
     public ToolPosture(Vector3 toolAxis, float axisRotationAngle) {
         if (toolAxis == Vector3.zero)
-            throw new ArgumentException("H‹ï²•ûŒü‚Íƒ[ƒƒxƒNƒgƒ‹‚É‚Å‚«‚Ü‚¹‚ñB");
+            throw new ArgumentException("å·¥å…·è»¸æ–¹å‘ã¯ã‚¼ãƒ­ãƒ™ã‚¯ãƒˆãƒ«ã«ã§ãã¾ã›ã‚“ã€‚");
 
         ToolAxis = toolAxis.normalized;
         AxisRotationAngle = axisRotationAngle;
@@ -34,58 +34,58 @@ public sealed class ToolPosture {
     }
 
     /// <summary>
-    /// YXYƒIƒCƒ‰[Šp‚Ö‚Ì•ÏŠ·
+    /// YXYã‚ªã‚¤ãƒ©ãƒ¼è§’ã¸ã®å¤‰æ›
     /// </summary>
     public (float phi1, float theta, float phi2) ToYXYEuler() {
-        // ŒXÎŠp (BaseAxis ‚Æ ToolAxis ‚ÌŠÔ‚ÌŠp“x)
+        // å‚¾æ–œè§’ (BaseAxis ã¨ ToolAxis ã®é–“ã®è§’åº¦)
         float theta = Vector3.Angle(BaseAxis, ToolAxis);
 
-        // XZ•½–Ê‚Ö‚ÌË‰e
+        // XZå¹³é¢ã¸ã®å°„å½±
         Vector3 projected = new Vector3(ToolAxis.x, 0, ToolAxis.z);
 
-        // ‘æˆêù‰ñŠp (XZ•½–Ê‚ÌX²Šî€)
+        // ç¬¬ä¸€æ—‹å›è§’ (XZå¹³é¢ã®Xè»¸åŸºæº–)
         float phi1 = Mathf.Atan2(projected.z, projected.x) * Mathf.Rad2Deg;
 
-        // ‘æ“ñù‰ñŠp (H‹ï²ü‚è‚Ì‰ñ“])
+        // ç¬¬äºŒæ—‹å›è§’ (å·¥å…·è»¸å‘¨ã‚Šã®å›è»¢)
         float phi2 = AxisRotationAngle;
 
         return (phi1, theta, phi2);
     }
 
     /// <summary>
-    /// YZYƒIƒCƒ‰[Šp‚Ö‚Ì•ÏŠ·
+    /// YZYã‚ªã‚¤ãƒ©ãƒ¼è§’ã¸ã®å¤‰æ›
     /// </summary>
     public (float psi, float theta, float phi) ToYZYEuler() {
-        // ŒXÎŠp (BaseAxis ‚Æ ToolAxis ‚ÌŠÔ‚ÌŠp“x)
+        // å‚¾æ–œè§’ (BaseAxis ã¨ ToolAxis ã®é–“ã®è§’åº¦)
         float theta = Vector3.Angle(BaseAxis, ToolAxis);
 
-        // XZ•½–Ê‚Ö‚ÌË‰e
+        // XZå¹³é¢ã¸ã®å°„å½±
         Vector3 projected = new Vector3(ToolAxis.x, 0, ToolAxis.z);
 
-        // ‘æˆêù‰ñŠp (XZ•½–Ê‚ÌZ²Šî€)
+        // ç¬¬ä¸€æ—‹å›è§’ (XZå¹³é¢ã®Zè»¸åŸºæº–)
         float psi = Mathf.Atan2(projected.x, projected.z) * Mathf.Rad2Deg;
 
-        // ‘æ“ñù‰ñŠp (H‹ï²ü‚è‚Ì‰ñ“])
+        // ç¬¬äºŒæ—‹å›è§’ (å·¥å…·è»¸å‘¨ã‚Šã®å›è»¢)
         float phi = AxisRotationAngle;
 
         return (psi, theta, phi);
     }
 
     /// <summary>
-    /// H‹ïp¨‚ğXYZƒIƒCƒ‰[Šp‚É•ÏŠ·
+    /// å·¥å…·å§¿å‹¢ã‚’XYZã‚ªã‚¤ãƒ©ãƒ¼è§’ã«å¤‰æ›
     /// </summary>
-    /// <returns>XYZ‡˜‚ÌƒIƒCƒ‰[Špi“x”–@j</returns>
+    /// <returns>XYZé †åºã®ã‚ªã‚¤ãƒ©ãƒ¼è§’ï¼ˆåº¦æ•°æ³•ï¼‰</returns>
     public Vector3 ToXYZEuler() {
-        // H‹ï²•ûŒü‚ğ•\Œ»‚·‚é‰ñ“]
+        // å·¥å…·è»¸æ–¹å‘ã‚’è¡¨ç¾ã™ã‚‹å›è»¢
         Quaternion directionRotation = Quaternion.FromToRotation(BaseAxis, ToolAxis);
 
-        // H‹ï²ü‚è‚Ì‰ñ“]
+        // å·¥å…·è»¸å‘¨ã‚Šã®å›è»¢
         Quaternion axisRotation = Quaternion.AngleAxis(AxisRotationAngle, ToolAxis);
 
-        // ÅI“I‚ÈƒNƒH[ƒ^ƒjƒIƒ“i•ûŒü‚Æ²ü‚è‚Ì‰ñ“]‚ğ‡¬j
+        // æœ€çµ‚çš„ãªã‚¯ã‚©ãƒ¼ã‚¿ãƒ‹ã‚ªãƒ³ï¼ˆæ–¹å‘ã¨è»¸å‘¨ã‚Šã®å›è»¢ã‚’åˆæˆï¼‰
         Quaternion combinedRotation = directionRotation * axisRotation;
 
-        // XYZƒIƒCƒ‰[Šp‚É•ÏŠ·
+        // XYZã‚ªã‚¤ãƒ©ãƒ¼è§’ã«å¤‰æ›
         return combinedRotation.eulerAngles;
     }
 
@@ -93,24 +93,24 @@ public sealed class ToolPosture {
     #region Static
 
     /// <summary>
-    /// XYZƒIƒCƒ‰[Šp‚©‚çToolPosture‚ğ¶¬iAxisRotationAngle‚àl—¶j
+    /// XYZã‚ªã‚¤ãƒ©ãƒ¼è§’ã‹ã‚‰ToolPostureã‚’ç”Ÿæˆï¼ˆAxisRotationAngleã‚‚è€ƒæ…®ï¼‰
     /// </summary>
     public static ToolPosture FromEulerAngles(Vector3 eulerAngles) {
-        // ƒIƒCƒ‰[Šp‚©‚çƒNƒH[ƒ^ƒjƒIƒ“‚ğ¶¬
+        // ã‚ªã‚¤ãƒ©ãƒ¼è§’ã‹ã‚‰ã‚¯ã‚©ãƒ¼ã‚¿ãƒ‹ã‚ªãƒ³ã‚’ç”Ÿæˆ
         Quaternion rotation = Quaternion.Euler(eulerAngles);
 
-        // H‹ï²•ûŒü‚ğŒvZiŠî€²‚ğ‰ñ“]j
+        // å·¥å…·è»¸æ–¹å‘ã‚’è¨ˆç®—ï¼ˆåŸºæº–è»¸ã‚’å›è»¢ï¼‰
         Vector3 toolAxis = rotation * BaseAxis;
 
-        // H‹ï²ü‚è‚Ì‰ñ“]Šp“x‚ğŒvZ
-        // ‰ñ“]²‚ªH‹ï²‚Æˆê’v‚·‚é•”•ª‚ğæ‚èo‚·
+        // å·¥å…·è»¸å‘¨ã‚Šã®å›è»¢è§’åº¦ã‚’è¨ˆç®—
+        // å›è»¢è»¸ãŒå·¥å…·è»¸ã¨ä¸€è‡´ã™ã‚‹éƒ¨åˆ†ã‚’å–ã‚Šå‡ºã™
         Quaternion directionRotation = Quaternion.FromToRotation(BaseAxis, toolAxis);
         Quaternion axisRotation = Quaternion.Inverse(directionRotation) * rotation;
 
-        // ƒc[ƒ‹²ü‚è‚ÌŠp“x
+        // ãƒ„ãƒ¼ãƒ«è»¸å‘¨ã‚Šã®è§’åº¦
         float axisRotationAngle = 2f * Mathf.Acos(axisRotation.w) * Mathf.Rad2Deg;
 
-        // •„†‚ğl—¶‚µ‚½Šp“x•â³i²‰ñ“]•ûŒü‚É]‚¤j
+        // ç¬¦å·ã‚’è€ƒæ…®ã—ãŸè§’åº¦è£œæ­£ï¼ˆè»¸å›è»¢æ–¹å‘ã«å¾“ã†ï¼‰
         if (axisRotationAngle > 180f) axisRotationAngle -= 360f;
 
         return new ToolPosture(toolAxis, axisRotationAngle);

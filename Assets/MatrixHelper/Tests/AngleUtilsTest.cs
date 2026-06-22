@@ -8,7 +8,7 @@ namespace Tests {
     [TestFixture]
     public class AngleUtilsTests {
 
-        // ƒeƒXƒgƒf[ƒ^‚ð”z—ñ‚Å€”õ
+        // ãƒ†ã‚¹ãƒˆãƒ‡ãƒ¼ã‚¿ã‚’é…åˆ—ã§æº–å‚™
         private static readonly float[] testAngles = new float[] { -360f, -180f, 0f, 180f, 360f, 540f, 720f };
 
         private static readonly float[] expectedNormalized360 = new float[] { 0f, 180f, 0f, 180f, 0f, 180f, 0f };

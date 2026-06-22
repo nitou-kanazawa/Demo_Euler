@@ -8,8 +8,8 @@ namespace Tests {
 
     public class AngleTests {
 
-        // ’è”
-        private const double Tolerance = 0.0001; // ‹–—eŒë·
+        // å®šæ•°
+        private const double Tolerance = 0.0001; // è¨±å®¹èª¤å·®
 
         private static class Circle {
             public const float Full = 360.0f;
@@ -19,14 +19,14 @@ namespace Tests {
 
 
         /// ----------------------------------------------------------------------------
-        #region ¶¬E•ÏŠ·
+        #region ç”Ÿæˆãƒ»å¤‰æ›
 
         [TestCase(180, Mathf.PI)]
         [TestCase(-720, -4 * Mathf.PI)]
         [TestCase(-360 + -180, -1, -180)]
         [TestCase(-3600 + 180, -10, Mathf.PI)]
         [TestCase(0, 0)]
-        public void ƒCƒ“ƒXƒ^ƒ“ƒX‚ğì¬‚·‚é_³í’l‚P(float expectedDegree, int value, float? additionalValue = null) {
+        public void ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ä½œæˆã™ã‚‹_æ­£å¸¸å€¤ï¼‘(float expectedDegree, int value, float? additionalValue = null) {
             // Arrange
             Angle expected = Angle.FromDegree(expectedDegree);
             Angle result;
@@ -44,7 +44,7 @@ namespace Tests {
         [TestCase(float.NaN)]
         [TestCase(float.NegativeInfinity)]
         [TestCase(float.PositiveInfinity)]
-        public void ƒCƒ“ƒXƒ^ƒ“ƒX‚ğì¬‚·‚é_ˆÙí’l(float value) {
+        public void ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ä½œæˆã™ã‚‹_ç•°å¸¸å€¤(float value) {
             // Assert
             Assert.Throws<ArithmeticException>(() => Angle.FromDegree(value));
         }
@@ -52,7 +52,7 @@ namespace Tests {
 
 
         [Test]
-        public void ”½“]‚·‚é() {
+        public void åè»¢ã™ã‚‹() {
             Assert.That(Angle.Zero.Reverse(), Is.EqualTo(Angle.Zero));
             Assert.That(Angle.FromDegree(45).Reverse(), Is.EqualTo(Angle.FromDegree(-315)));
             Assert.That(Angle.FromDegree(-90).Reverse(), Is.EqualTo(Angle.FromDegree(270)));
@@ -67,12 +67,12 @@ namespace Tests {
 
 
         /// ----------------------------------------------------------------------------
-        #region ³‹K‰»
+        #region æ­£è¦åŒ–
 
         [TestCase(370, 10)]
         [TestCase(-450, -90)]
         [TestCase(-1080, 0)]
-        public void ³‹K‰»‚³‚ê‚½Šp“x‚ªŠú‘Ò’Ê‚è‚Å‚ ‚é(float input, float expectedNormalized) {
+        public void æ­£è¦åŒ–ã•ã‚ŒãŸè§’åº¦ãŒæœŸå¾…é€šã‚Šã§ã‚ã‚‹(float input, float expectedNormalized) {
             // Arrange
             var angle = Angle.FromDegree(input);
 
@@ -95,7 +95,7 @@ namespace Tests {
         //[TestCase(0, 0)]
         //[TestCase(0, 0)]
         //[TestCase(-90, 270)] 
-        //public void ³‚Ì³‹K‰»‚³‚ê‚½Šp“x‚ğæ“¾‚Å‚«‚é(float inputDegree1, float expectedNormalizedDegree) {
+        //public void æ­£ã®æ­£è¦åŒ–ã•ã‚ŒãŸè§’åº¦ã‚’å–å¾—ã§ãã‚‹(float inputDegree1, float expectedNormalizedDegree) {
         //    // Arrange
         //    var angle = Angle.FromDegree(inputDegree);
 
@@ -110,11 +110,11 @@ namespace Tests {
 
 
         /// ----------------------------------------------------------------------------
-        #region ”»’è
+        #region åˆ¤å®š
 
         [TestCase(720, true)]
         [TestCase(450, false)]
-        public void Šp“x‚ª360‚Ì”{”‚©”»’è‚Å‚«‚é(float inputDegree, bool expectedIsTrueCircle) {
+        public void è§’åº¦ãŒ360ã®å€æ•°ã‹åˆ¤å®šã§ãã‚‹(float inputDegree, bool expectedIsTrueCircle) {
             // Arrange
             var angle = Angle.FromDegree(inputDegree);
 
@@ -128,11 +128,11 @@ namespace Tests {
 
 
         /// ----------------------------------------------------------------------------
-        #region •ÏŠ·
+        #region å¤‰æ›
 
         [TestCase(Mathf.PI / 2, 90)]
         [TestCase(-Mathf.PI, -180)]
-        public void ŒÊ“x–@‚©‚ç‚Ì•ÏŠ·‚ª³‚µ‚­s‚í‚ê‚é(float inputRadian, float expectedDegree) {
+        public void å¼§åº¦æ³•ã‹ã‚‰ã®å¤‰æ›ãŒæ­£ã—ãè¡Œã‚ã‚Œã‚‹(float inputRadian, float expectedDegree) {
             // Arrange
             var angle = Angle.FromRadian(inputRadian);
 
@@ -145,7 +145,7 @@ namespace Tests {
 
         [TestCase(90, -90)]
         [TestCase(-180, 180)]
-        public void •„†‚ğ”½“]‚³‚¹‚½Šp“x‚ğæ“¾‚Å‚«‚é(float inputDegree, float expectedReversedDegree) {
+        public void ç¬¦å·ã‚’åè»¢ã•ã›ãŸè§’åº¦ã‚’å–å¾—ã§ãã‚‹(float inputDegree, float expectedReversedDegree) {
             // Arrange
             var angle = Angle.FromDegree(inputDegree);
 
@@ -158,7 +158,7 @@ namespace Tests {
 
         [TestCase(-90, 90)]
         [TestCase(180, 180)]
-        public void Šp“x‚Ìâ‘Î’l‚ğæ“¾‚Å‚«‚é(float inputDegree, float expectedAbsoluteDegree) {
+        public void è§’åº¦ã®çµ¶å¯¾å€¤ã‚’å–å¾—ã§ãã‚‹(float inputDegree, float expectedAbsoluteDegree) {
             // Arrange
             var angle = Angle.FromDegree(inputDegree);
 
@@ -172,10 +172,10 @@ namespace Tests {
 
 
         /// ----------------------------------------------------------------------------
-        #region ‰‰Zq
+        #region æ¼”ç®—å­
 
         [Test]
-        public void ‰‰Zq‚Ì‰ÁZ‚ª³‚µ‚­“®ì‚·‚é() {
+        public void æ¼”ç®—å­ã®åŠ ç®—ãŒæ­£ã—ãå‹•ä½œã™ã‚‹() {
             // Arrange
             var angle1 = Angle.FromDegree(30);
             var angle2 = Angle.FromDegree(45);
@@ -188,7 +188,7 @@ namespace Tests {
         }
 
         [Test]
-        public void ‰‰Zq‚ÌŒ¸Z‚ª³‚µ‚­“®ì‚·‚é() {
+        public void æ¼”ç®—å­ã®æ¸›ç®—ãŒæ­£ã—ãå‹•ä½œã™ã‚‹() {
             // Arrange
             var angle1 = Angle.FromDegree(100);
             var angle2 = Angle.FromDegree(40);
@@ -201,7 +201,7 @@ namespace Tests {
         }
 
         [Test]
-        public void ‰‰Zq‚ÌæZ‚ª³‚µ‚­“®ì‚·‚é() {
+        public void æ¼”ç®—å­ã®ä¹—ç®—ãŒæ­£ã—ãå‹•ä½œã™ã‚‹() {
             // Arrange
             var angle = Angle.FromDegree(90);
 
@@ -213,7 +213,7 @@ namespace Tests {
         }
 
         [Test]
-        public void ‰‰Zq‚ÌœZ‚ª³‚µ‚­“®ì‚·‚é() {
+        public void æ¼”ç®—å­ã®é™¤ç®—ãŒæ­£ã—ãå‹•ä½œã™ã‚‹() {
             // Arrange
             var angle = Angle.FromDegree(180);
 

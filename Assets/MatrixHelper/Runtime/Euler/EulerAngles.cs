@@ -4,22 +4,22 @@ using UnityEngine;
 namespace nitou {
 
     /// <summary>
-    /// ‚R²‚ÌƒIƒCƒ‰[Šp‚ğ•\‚·\‘¢‘ÌD
+    /// ï¼“è»¸ã®ã‚ªã‚¤ãƒ©ãƒ¼è§’ã‚’è¡¨ã™æ§‹é€ ä½“ï¼
     /// </summary>
     public partial struct EulerAngles : IEquatable<EulerAngles>{
 
-        // [NOTE] ŒvZ‚Å‚Í‚È‚­’l‚Ì•Û‚ª–Ú“I‚Ì‚½‚ßA—v‘f‚Í•s•Ï‚Æ‚·‚é
+        // [NOTE] è¨ˆç®—ã§ã¯ãªãå€¤ã®ä¿æŒãŒç›®çš„ã®ãŸã‚ã€è¦ç´ ã¯ä¸å¤‰ã¨ã™ã‚‹
 
         public Type Order { get; }
         public float X { get; }
         public float Y { get; }
         public float Z { get; }
 
-        // ’è”
-        public static readonly float Tolerance = 1e-5f; // ‹–—eŒë·
+        // å®šæ•°
+        public static readonly float Tolerance = 1e-5f; // è¨±å®¹èª¤å·®
 
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^D
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼
         /// </summary>
         public EulerAngles(Type order, float x, float y, float z) {
             this.Order = order;
@@ -29,13 +29,13 @@ namespace nitou {
         }
 
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^D
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼
         /// </summary>
         public EulerAngles(Type order, Vector3 angles)
             : this(order, angles.x, angles.y, angles.z) { }
 
         /// <summary>
-        /// ƒ[ƒ”»’è
+        /// ã‚¼ãƒ­åˆ¤å®š
         /// </summary>
         public bool IsZero() {
             return Mathf.Abs(X) < Tolerance
@@ -44,14 +44,14 @@ namespace nitou {
         }
 
         /// <summary>
-        /// “¯’l”»’èD
+        /// åŒå€¤åˆ¤å®šï¼
         /// </summary>
         public override bool Equals(object obj) {
             return obj is EulerAngles other && Equals(other);
         }
 
         /// <summary>
-        /// “¯’l”»’èD
+        /// åŒå€¤åˆ¤å®šï¼
         /// </summary>
         public bool Equals(EulerAngles other) {
             return Order == other.Order
@@ -78,14 +78,14 @@ namespace nitou {
         public EulerAngles WithAnglesZ(float z) => new(Order, X, Y, z);
 
         /// <summary>
-        /// ‰ñ“]s—ñ‚É•ÏŠ·‚·‚éD
+        /// å›è»¢è¡Œåˆ—ã«å¤‰æ›ã™ã‚‹ï¼
         /// </summary>
         public Matrix4x4 ToMatrix() {
             return MatrixUtils.FromEulerAngle(Order, X, Y, Z);
         }
 
         /// <summary>
-        /// ‘Î‰‚·‚éŒÅ’èŠp‚Ö•ÏŠ·‚·‚é.
+        /// å¯¾å¿œã™ã‚‹å›ºå®šè§’ã¸å¤‰æ›ã™ã‚‹.
         /// </summary>
         public FixedAngles ToFixedAngle() => new FixedAngles(
             Order switch {
@@ -101,10 +101,10 @@ namespace nitou {
 
 
         /// <summary>
-        /// Šp“x‚ğ (-180, 180] ‚Ì”ÍˆÍ‚É³‹K‰»
+        /// è§’åº¦ã‚’ (-180, 180] ã®ç¯„å›²ã«æ­£è¦åŒ–
         /// </summary>
         private static float NormalizeAngleTo180(float angle) {
-            angle %= 360f; // 360‚Åè—]
+            angle %= 360f; // 360ã§å‰°ä½™
             return angle > 180f ? angle - 360f : (angle <= -180f ? angle + 360f : angle);
         }
 
@@ -119,7 +119,7 @@ namespace nitou {
         public float Z { get; }
 
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^D
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼
         /// </summary>
         public FixedAngles(FixedAngleType type, float x, float y, float z) {
             this.Order = type;
@@ -129,7 +129,7 @@ namespace nitou {
         }
 
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^D
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼
         /// </summary>
         public FixedAngles(FixedAngleType type, Vector3 angles)
             : this(type, angles.x, angles.y, angles.z) { }
@@ -145,7 +145,7 @@ namespace nitou {
 
 
         /// <summary>
-        /// ‰ñ“]s—ñ‚É•ÏŠ·‚·‚éD
+        /// å›è»¢è¡Œåˆ—ã«å¤‰æ›ã™ã‚‹ï¼
         /// </summary>
         public Matrix4x4 ToMatrix() {
             var euler = ToEulerAngle();
@@ -153,7 +153,7 @@ namespace nitou {
         }
 
         /// <summary>
-        /// ‘Î‰‚·‚éƒIƒCƒ‰[Šp‚Ö•ÏŠ·‚·‚é.
+        /// å¯¾å¿œã™ã‚‹ã‚ªã‚¤ãƒ©ãƒ¼è§’ã¸å¤‰æ›ã™ã‚‹.
         /// </summary>
         public EulerAngles ToEulerAngle() => new EulerAngles(
             Order switch {

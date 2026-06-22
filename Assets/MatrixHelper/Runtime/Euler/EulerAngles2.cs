@@ -4,11 +4,11 @@ using UnityEngine;
 namespace nitou {
 
     /// <summary>
-    /// ‚Q²‚ÌƒIƒCƒ‰[Šp‚ğ•\‚·\‘¢‘ÌD
+    /// ï¼’è»¸ã®ã‚ªã‚¤ãƒ©ãƒ¼è§’ã‚’è¡¨ã™æ§‹é€ ä½“ï¼
     /// </summary>
     public partial struct EulerAngles2 : IEquatable<EulerAngles2> {
 
-        // [NOTE] ŒvZ‚Å‚Í‚È‚­’l‚Ì•Û‚ª–Ú“I‚Ì‚½‚ßA—v‘f‚Í•s•Ï‚Æ‚·‚é
+        // [NOTE] è¨ˆç®—ã§ã¯ãªãå€¤ã®ä¿æŒãŒç›®çš„ã®ãŸã‚ã€è¦ç´ ã¯ä¸å¤‰ã¨ã™ã‚‹
 
         public Type Order { get; }
         public float S1 { get; }
@@ -16,7 +16,7 @@ namespace nitou {
         public float S2 { get; }
 
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^D
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼
         /// </summary>
         public EulerAngles2(Type order, float s1, float p, float s2) {
             this.Order = order;
@@ -26,7 +26,7 @@ namespace nitou {
         }
 
         /// <summary>
-        /// ƒ[ƒ”»’è
+        /// ã‚¼ãƒ­åˆ¤å®š
         /// </summary>
         public bool IsZero() {
             return Mathf.Abs(S1) < EulerAngles.Tolerance
@@ -35,14 +35,14 @@ namespace nitou {
         }
 
         /// <summary>
-        /// “¯’l”»’èD
+        /// åŒå€¤åˆ¤å®šï¼
         /// </summary>
         public override bool Equals(object obj) {
             return obj is EulerAngles2 other && Equals(other);
         }
 
         /// <summary>
-        /// “¯’l”»’èD
+        /// åŒå€¤åˆ¤å®šï¼
         /// </summary>
         public bool Equals(EulerAngles2 other) {
             return Order == other.Order
@@ -68,7 +68,7 @@ namespace nitou {
         //public EulerAngles2 WithAnglesS2(float z) => new(Order, X, Y, z);
 
         /// <summary>
-        /// ‰ñ“]s—ñ‚É•ÏŠ·‚·‚éD
+        /// å›è»¢è¡Œåˆ—ã«å¤‰æ›ã™ã‚‹ï¼
         /// </summary>
         public Matrix4x4 ToMatrix() {
             return MatrixUtils.FromEulerAngle(Order, S1, P, S2);

@@ -1,0 +1,23 @@
+root = true
+
+# 全ファイル共通：UTF-8 / LF を強制し、文字化けと改行コードの混在を防ぐ
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+
+# C# ソース
+[*.cs]
+indent_size = 4
+
+# プロジェクト定義系
+[*.{asmdef,json}]
+indent_size = 2
+
+# Unity が生成・管理する YAML / バイナリ寄りのアセットは整形対象から除外する
+# （文字コードだけ UTF-8 を維持し、末尾空白や改行の自動編集は行わない）
+[*.{meta,asset,unity,prefab,mat,anim,controller,inputactions}]
+trim_trailing_whitespace = false
+insert_final_newline = false
