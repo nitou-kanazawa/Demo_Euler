@@ -195,6 +195,74 @@ namespace nitou {
             return new EulerAngles(EulerAngles.Type.ZYX, theta, phi, psi);
         }
 
+        /// <summary>
+        /// 回転行列からXZY-オイラー角を取得する．
+        /// </summary>
+        /// <remarks>R = Rx・Rz・Ry</remarks>
+        public static EulerAngles GetEulerAnglesXZY(Matrix4x4 mat) {
+            float b = Mathf.Asin(Mathf.Clamp(-mat.m01, -1.0f, 1.0f));   // 中間角(Z)
+            float a, g;                                                 // a:X回転, g:Y回転
+            if (Mathf.Abs(Mathf.Cos(b)) < GimbalLockThreshold) {
+                g = 0;
+                a = mat.m01 < 0 ? Mathf.Atan2(mat.m20, mat.m10) : Mathf.Atan2(-mat.m20, -mat.m10);
+            } else {
+                a = Mathf.Atan2(mat.m21, mat.m11);
+                g = Mathf.Atan2(mat.m02, mat.m00);
+            }
+            return new EulerAngles(EulerAngles.Type.XZY, a, g, b);      // (X,Y,Z)=(a,g,b)
+        }
+
+        /// <summary>
+        /// 回転行列からYXZ-オイラー角を取得する．
+        /// </summary>
+        /// <remarks>R = Ry・Rx・Rz</remarks>
+        public static EulerAngles GetEulerAnglesYXZ(Matrix4x4 mat) {
+            float b = Mathf.Asin(Mathf.Clamp(-mat.m12, -1.0f, 1.0f));   // 中間角(X)
+            float a, g;                                                 // a:Y回転, g:Z回転
+            if (Mathf.Abs(Mathf.Cos(b)) < GimbalLockThreshold) {
+                g = 0;
+                a = Mathf.Atan2(-mat.m20, mat.m00);
+            } else {
+                a = Mathf.Atan2(mat.m02, mat.m22);
+                g = Mathf.Atan2(mat.m10, mat.m11);
+            }
+            return new EulerAngles(EulerAngles.Type.YXZ, b, a, g);      // (X,Y,Z)=(b,a,g)
+        }
+
+        /// <summary>
+        /// 回転行列からYZX-オイラー角を取得する．
+        /// </summary>
+        /// <remarks>R = Ry・Rz・Rx</remarks>
+        public static EulerAngles GetEulerAnglesYZX(Matrix4x4 mat) {
+            float b = Mathf.Asin(Mathf.Clamp(mat.m10, -1.0f, 1.0f));    // 中間角(Z)
+            float a, g;                                                 // a:Y回転, g:X回転
+            if (Mathf.Abs(Mathf.Cos(b)) < GimbalLockThreshold) {
+                g = 0;
+                a = Mathf.Atan2(mat.m02, mat.m22);
+            } else {
+                a = Mathf.Atan2(-mat.m20, mat.m00);
+                g = Mathf.Atan2(-mat.m12, mat.m11);
+            }
+            return new EulerAngles(EulerAngles.Type.YZX, g, a, b);      // (X,Y,Z)=(g,a,b)
+        }
+
+        /// <summary>
+        /// 回転行列からZXY-オイラー角を取得する．
+        /// </summary>
+        /// <remarks>R = Rz・Rx・Ry</remarks>
+        public static EulerAngles GetEulerAnglesZXY(Matrix4x4 mat) {
+            float b = Mathf.Asin(Mathf.Clamp(mat.m21, -1.0f, 1.0f));    // 中間角(X)
+            float a, g;                                                 // a:Z回転, g:Y回転
+            if (Mathf.Abs(Mathf.Cos(b)) < GimbalLockThreshold) {
+                g = 0;
+                a = Mathf.Atan2(mat.m10, mat.m00);
+            } else {
+                a = Mathf.Atan2(-mat.m01, mat.m11);
+                g = Mathf.Atan2(-mat.m20, mat.m22);
+            }
+            return new EulerAngles(EulerAngles.Type.ZXY, b, g, a);      // (X,Y,Z)=(b,g,a)
+        }
+
         // -----
 
         /// <summary>
@@ -246,54 +314,127 @@ namespace nitou {
         }
 
         /// <summary>
-        /// 回転行列からZYZ-オイラー角を取得する．
+        /// 回転行列からXYX-オイラー角を取得する．
         /// </summary>
-        /// <remarks>
-        /// 実装は <see cref="FromRotationMatrixZYZ"/> に集約している．
-        /// （旧実装は中間角に Acos(m11) を用いた誤りがあったため修正）
-        /// </remarks>
-        /// <param name="mat">ZYZオイラー角の回転行列</param>
-        public static EulerAngles2 GetEulerAnglesZYZ(Matrix4x4 mat) => FromRotationMatrixZYZ(mat);
+        /// <remarks>R = Rx(s1)・Ry(p)・Rx(s2)</remarks>
+        public static EulerAngles2 GetEulerAnglesXYX(Matrix4x4 mat) {
+            float p = Mathf.Acos(Mathf.Clamp(mat.m00, -1.0f, 1.0f));   // inner 軸(Y)
+            float s1, s2;
+            if (Mathf.Approximately(p, 0)) {
+                s2 = 0;
+                s1 = Mathf.Atan2(-mat.m12, mat.m22);
+            } else if (Mathf.Approximately(p, Mathf.PI)) {
+                s2 = 0;
+                s1 = Mathf.Atan2(mat.m12, -mat.m22);
+            } else {
+                s1 = Mathf.Atan2(mat.m10, -mat.m20);
+                s2 = Mathf.Atan2(mat.m01, mat.m02);
+            }
+            return new EulerAngles2(EulerAngles2.Type.XYX, s1, p, s2);
+        }
 
         /// <summary>
-        /// 回転行列からZYZオイラー角を導出します。
+        /// 回転行列からYZY-オイラー角を取得する．
+        /// </summary>
+        /// <remarks>R = Ry(s1)・Rz(p)・Ry(s2)</remarks>
+        public static EulerAngles2 GetEulerAnglesYZY(Matrix4x4 mat) {
+            float p = Mathf.Acos(Mathf.Clamp(mat.m11, -1.0f, 1.0f));   // inner 軸(Z)
+            float s1, s2;
+            if (Mathf.Approximately(p, 0)) {
+                s2 = 0;
+                s1 = Mathf.Atan2(mat.m02, mat.m00);
+            } else if (Mathf.Approximately(p, Mathf.PI)) {
+                s2 = 0;
+                s1 = Mathf.Atan2(mat.m02, -mat.m00);
+            } else {
+                s1 = Mathf.Atan2(mat.m21, -mat.m01);
+                s2 = Mathf.Atan2(mat.m12, mat.m10);
+            }
+            return new EulerAngles2(EulerAngles2.Type.YZY, s1, p, s2);
+        }
+
+        /// <summary>
+        /// 回転行列からYXY-オイラー角を取得する．
+        /// </summary>
+        /// <remarks>R = Ry(s1)・Rx(p)・Ry(s2)</remarks>
+        public static EulerAngles2 GetEulerAnglesYXY(Matrix4x4 mat) {
+            float p = Mathf.Acos(Mathf.Clamp(mat.m11, -1.0f, 1.0f));   // inner 軸(X)
+            float s1, s2;
+            if (Mathf.Approximately(p, 0)) {
+                s2 = 0;
+                s1 = Mathf.Atan2(mat.m02, mat.m00);
+            } else if (Mathf.Approximately(p, Mathf.PI)) {
+                s2 = 0;
+                s1 = Mathf.Atan2(-mat.m02, mat.m00);
+            } else {
+                s1 = Mathf.Atan2(mat.m01, mat.m21);
+                s2 = Mathf.Atan2(mat.m10, -mat.m12);
+            }
+            return new EulerAngles2(EulerAngles2.Type.YXY, s1, p, s2);
+        }
+
+        /// <summary>
+        /// 回転行列からZYZ-オイラー角を取得する．
+        /// </summary>
+        /// <remarks>R = Rz(s1)・Ry(p)・Rz(s2)</remarks>
+        /// <param name="mat">ZYZオイラー角の回転行列</param>
+        public static EulerAngles2 GetEulerAnglesZYZ(Matrix4x4 mat) {
+            float p = Mathf.Acos(Mathf.Clamp(mat.m22, -1.0f, 1.0f));   // inner 軸(Y)
+            float s1, s2;
+            // sin(p) ≈ 0 のとき s1 と s2 が縮退するため、s2 = 0 として s1 を求める
+            if (Mathf.Approximately(p, 0)) {
+                s2 = 0;
+                s1 = Mathf.Atan2(mat.m10, mat.m00);
+            } else if (Mathf.Approximately(p, Mathf.PI)) {
+                s2 = 0;
+                s1 = Mathf.Atan2(-mat.m10, -mat.m00);
+            } else {
+                s1 = Mathf.Atan2(mat.m12, mat.m02);
+                s2 = Mathf.Atan2(mat.m21, -mat.m20);
+            }
+            return new EulerAngles2(EulerAngles2.Type.ZYZ, s1, p, s2);
+        }
+
+        /// <summary>
+        /// 回転行列からZYZオイラー角を導出する（<see cref="GetEulerAnglesZYZ"/> の別名）．
         /// </summary>
         /// <param name="mat">回転行列 (4x4)</param>
-        /// <returns>ZYZオイラー角 (alpha, beta, gamma)</returns>
-        public static EulerAngles2 FromRotationMatrixZYZ(Matrix4x4 mat) {
+        public static EulerAngles2 FromRotationMatrixZYZ(Matrix4x4 mat) => GetEulerAnglesZYZ(mat);
 
-            // Rz`y`z`(αβγ)
-            // = Rα Rβ Rγ
-            //   | cαcβcγ-sαsγ -cαcβsγ-sαcβγ cαsβ |
-            // = | cαcβcγ+cαsγ -sαcβsγ+cαcγ  sαsβ |
-            //   |    -sβcγ         sβsγ      cβ  |
+        // -----
 
-            // m22からβを導出できる．
-            // またsinβ≠0（非ジンバルロック）のとき、m02とm12からα、m20とm21からγを導出できる．
+        /// <summary>
+        /// 回転行列から、指定した順序の (i-j-k) オイラー角を取得する．
+        /// </summary>
+        /// <param name="mat">回転行列</param>
+        /// <param name="order">オイラー角の順序</param>
+        public static EulerAngles ToEulerAngles(Matrix4x4 mat, EulerAngles.Type order) {
+            return order switch {
+                EulerAngles.Type.XYZ => GetEulerAnglesXYZ(mat),
+                EulerAngles.Type.XZY => GetEulerAnglesXZY(mat),
+                EulerAngles.Type.YXZ => GetEulerAnglesYXZ(mat),
+                EulerAngles.Type.YZX => GetEulerAnglesYZX(mat),
+                EulerAngles.Type.ZXY => GetEulerAnglesZXY(mat),
+                EulerAngles.Type.ZYX => GetEulerAnglesZYX(mat),
+                _ => throw new NotImplementedException($"Euler type {order} is not implemented.")
+            };
+        }
 
-            float alpha, beta, gamma;
-            beta = Mathf.Acos(mat.m22);
-
-            // 特殊ケースの処理
-            // beta = 0 の場合 (Z軸回りの回転のみ)
-            if (Mathf.Approximately(beta, 0)) {
-                alpha = 0;
-                gamma = Mathf.Atan2(mat.m01, mat.m00); // atan2(R12, R11)
-            } 
-            // beta = pi の場合 (反転)
-            else if (Mathf.Approximately(beta, Mathf.PI)) {
-                alpha = 0;
-                gamma = Mathf.Atan2(-mat.m01, -mat.m00); // atan2(-R12, -R11)
-            } 
-            
-
-            // 通常ケース
-            else {
-                alpha = Mathf.Atan2(mat.m12, mat.m02); // arctan(m12, m02)
-                gamma = Mathf.Atan2(mat.m21, -mat.m20); // arctan(m21, -m20)
-            }
-
-            return new EulerAngles2(EulerAngles2.Type.ZYZ, alpha, beta, gamma);
+        /// <summary>
+        /// 回転行列から、指定した順序の (i-j-i) 対称オイラー角を取得する．
+        /// </summary>
+        /// <param name="mat">回転行列</param>
+        /// <param name="order">対称オイラー角の順序</param>
+        public static EulerAngles2 ToEulerAngles(Matrix4x4 mat, EulerAngles2.Type order) {
+            return order switch {
+                EulerAngles2.Type.XZX => GetEulerAnglesXZX(mat),
+                EulerAngles2.Type.XYX => GetEulerAnglesXYX(mat),
+                EulerAngles2.Type.YZY => GetEulerAnglesYZY(mat),
+                EulerAngles2.Type.YXY => GetEulerAnglesYXY(mat),
+                EulerAngles2.Type.ZXZ => GetEulerAnglesZXZ(mat),
+                EulerAngles2.Type.ZYZ => GetEulerAnglesZYZ(mat),
+                _ => throw new NotImplementedException($"Euler type {order} is not implemented.")
+            };
         }
 
 
